@@ -16,17 +16,15 @@ describe ("Chaturbate Interview Assignment", () =>  {
        '\tconfirms the "Sign Up", "Scan Cams", "Next Cam", and "Send Tip" buttons exist, \n' +
        '\tconfirms the video is playing, \n' +
        '\tand confirms clicking "Scan Cams" leads to a new page', ()  => {
-
         const roomLinkUrl = homePage.visitRandomRoom();
         expect(browser.getUrl()).to.contain(roomLinkUrl);
 
         roomPage.confirmPageIsDisplayed();
         roomPage.confirmVideoIsPlaying();
-        roomPage.scanCams();
 
         for (let i = 0; i < 3; i++) {
             const savedUrl = browser.getUrl();
-            roomPage.skipCam();
+            i == 0 ? roomPage.scanCams() : roomPage.skipCam();
             browser.waitUntil(() => savedUrl != browser.getUrl());
         }
     });
